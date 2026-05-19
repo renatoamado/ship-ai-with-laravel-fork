@@ -119,7 +119,13 @@ Route::get('/support/rag-test', function () {
     return $response->text;
 });
 
+Route::post('/chat/stream', [ChatController::class, 'stream'])->middleware('auth');
+
 Route::post('/chat', [ChatController::class, 'send'])->middleware('auth');
+
+Route::get('/chat', function () {
+    return view('chat');
+})->middleware('auth')->name('chat');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
